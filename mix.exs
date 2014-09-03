@@ -5,7 +5,16 @@ defmodule ParsEx.Mixfile do
     [app: :parsex,
      version: "0.0.1",
      elixir: "~> 1.0.0-rc2",
-     deps: deps]
+     deps: deps,
+     package: [
+       contributors: ["Jeremy Lyman"],
+       licenses: ["MIT"],
+       links: [github: "https//github.com/maarek/ParsEx"]
+     ],
+     description: """
+     Elixir HTTP Client for communicating with Parse.com's Restful API
+     """
+    ]
   end
 
   # Configuration for the OTP application
