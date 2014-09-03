@@ -12,7 +12,7 @@ defmodule ParsEx.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :posion, :httpoison]]
+    [applications: [:logger, :poison, :httpoison]]
   end
 
   # Dependencies can be Hex packages:
