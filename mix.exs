@@ -9,10 +9,10 @@ defmodule ParsEx.Mixfile do
      package: [
        contributors: ["Jeremy Lyman"],
        licenses: ["MIT"],
-       links: [github: "https//github.com/maarek/ParsEx"]
+       links: [github: "https://github.com/maarek/ParsEx"]
      ],
      description: """
-     Elixir HTTP Client for communicating with Parse.com's Restful API
+     ParsEx is an Elixir HTTP Client for communicating with Parse.com's Restful API
      """
     ]
   end
