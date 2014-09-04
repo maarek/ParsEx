@@ -74,14 +74,14 @@ defmodule ParsEx do
   @doc """
   Request Password Reset
   """
-  def requestPasswordReset(email) when email != nil do
+  def request_password_reset(email) when email != nil do
     response Request.post("requestPasswordReset", %{"email" => email}, post_headers)
   end
 
   @doc """
   Validate User
   """
-  def validateUser(sessionToken) when sessionToken != nil do
+  def validate_user(sessionToken) when sessionToken != nil do
     response Request.get("users/me", Map.merge(get_headers, %{"X-Parse-Session-Token" => sessionToken}))
   end
 
