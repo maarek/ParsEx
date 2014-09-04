@@ -33,7 +33,8 @@ defmodule ParsEx.Model.Schema do
 
       Module.eval_quoted __MODULE__, [
         ParsEx.Model.Schema.parsex_struct(@struct_fields),
-        ParsEx.Model.Schema.parsex_fields(all_fields)]
+        ParsEx.Model.Schema.parsex_fields(all_fields),
+        ParsEx.Model.Schema.parsex_helpers(all_fields)]
     end
   end
 
@@ -82,6 +83,26 @@ defmodule ParsEx.Model.Schema do
       def __schema__(:field_type, _), do: nil
       def __schema__(:field_names), do: unquote(field_names)
     end ]
+  end
+
+  @doc false
+  def parsex_helpers(all_fields) do
+    field_names = Enum.map(all_fields, &elem(&1, 0))
+
+    quote do
+      def __schema__(:allocate, values) do
+        zip   = Enum.zip(unquote(field_names), values)
+        struct(__MODULE__, zip)
+      end
+
+      def __schema__(:keywords, model, opts \\ []) do
+        values = Map.take(model, unquote(field_names))
+
+        Enum.filter(values, fn {field, _} ->
+          __schema__(:field, field)
+        end)
+      end
+    end
   end
 
   defp check_type!({outer, inner}) when outer in Util.poly_types and inner in Util.types, do: :ok
