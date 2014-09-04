@@ -31,6 +31,7 @@ defmodule ParsEx.Model.Schema do
 
       def __schema__(:source), do: @parsex_source
 
+      IO.puts inspect(all_fields)
       Module.eval_quoted __MODULE__, [
         ParsEx.Model.Schema.parsex_struct(@struct_fields),
         ParsEx.Model.Schema.parsex_fields(all_fields),
@@ -58,6 +59,9 @@ defmodule ParsEx.Model.Schema do
     end
 
     struct_fields = Module.get_attribute(mod, :struct_fields)
+    Module.put_attribute(mod, :struct_fields, struct_fields ++ [{name, opts[:default]}])
+
+    opts = Enum.reduce([:default], opts, &Dict.delete(&2, &1))
     Module.put_attribute(mod, :parsex_fields, [{name, [type: type] ++ opts}|fields])
   end
 
@@ -88,10 +92,12 @@ defmodule ParsEx.Model.Schema do
   @doc false
   def parsex_helpers(all_fields) do
     field_names = Enum.map(all_fields, &elem(&1, 0))
+    IO.puts "Define helpers"
 
     quote do
       def __schema__(:allocate, values) do
         zip   = Enum.zip(unquote(field_names), values)
+        IO.puts "Adding #{zip} to struct"
         struct(__MODULE__, zip)
       end
 
