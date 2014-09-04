@@ -32,8 +32,8 @@ defmodule ParsEx.Model.Schema do
       def __schema__(:source), do: @parsex_source
 
       Module.eval_quoted __MODULE__, [
-        ParsEx.Module.Schema.parsex_struct(@struct_fields),
-        ParsEx.Module.Schema.parsex_fields(all_fields)]
+        ParsEx.Model.Schema.parsex_struct(@struct_fields),
+        ParsEx.Model.Schema.parsex_fields(all_fields)]
     end
   end
 
