@@ -92,12 +92,10 @@ defmodule ParsEx.Model.Schema do
   @doc false
   def parsex_helpers(all_fields) do
     field_names = Enum.map(all_fields, &elem(&1, 0))
-    IO.puts "Define helpers"
 
     quote do
       def __schema__(:allocate, values) do
         zip   = Enum.zip(unquote(field_names), values)
-        IO.puts "Adding #{zip} to struct"
         struct(__MODULE__, zip)
       end
 
