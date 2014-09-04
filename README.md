@@ -1,6 +1,5 @@
 ParsEx
 ======
 
-ParsEx is an Elixir client for Parse's restful api
-
+ParsEx is an Elixir HTTP Client for communicating with Parse.com's Restful API
 
